@@ -1,0 +1,79 @@
+.lookbook-section {
+  margin: 30px 0;
+}
+
+.lookbook-container {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.lookbook-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.lookbook-content {
+  margin-top: 2rem;
+}
+
+.lookbook-name {
+  margin-bottom: 1rem;
+}
+
+.lookbook-description {
+  margin-bottom: 2rem;
+}
+
+.lookbook-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.lookbook-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+}
+
+.lookbook-product-card {
+  scroll-snap-align: start;
+  min-width: 250px;
+  margin-right: 1rem;
+}
+
+.lookbook-product-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.lookbook-product-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.lookbook-product-info {
+  margin-top: 1rem;
+}
+
+.lookbook-product-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.lookbook-product-price {
+  margin: 0.5rem 0 0;
+  color: var(--price-text-color);
+}
+
+@media screen and (max-width: 749px) {
+  .lookbook-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
