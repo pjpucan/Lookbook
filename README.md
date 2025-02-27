@@ -1,6 +1,6 @@
 # Lookbook
 
-This is a Shopify for Lookbook funtionality
+This is a Shopify Theme for Lookbook funtionality
 
 
 ## Prerequisite:
