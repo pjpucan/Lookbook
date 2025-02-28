@@ -1,0 +1,81 @@
+{{ 'section-lookbook.css' | asset_url | stylesheet_tag }}
+
+<div class="lookbook-container page-width">
+  {% if section.settings.title != blank %}
+    <h2 class="lookbook-title">{{ section.settings.title }}</h2>
+  {% endif %}
+
+  {% if section.settings.lookbook != blank %}
+    {% assign lookbook = section.settings.lookbook %}
+    
+    {% if lookbook.title != blank %}
+      <h3 class="lookbook-name">{{ lookbook.title }}</h3>
+    {% endif %}
+    
+    {% if lookbook.description != blank %}
+      <div class="lookbook-description">{{ lookbook.description }}</div>
+    {% endif %}
+    
+    <div class="lookbook-content">
+      {% assign products = lookbook.products.value %}
+      {% if products != blank %}
+        <div class="lookbook-products">
+          {% for product in products %}
+            <div class="lookbook-product-card">
+              <a href="{{ product.url }}" class="lookbook-product-link">
+                {% if product.featured_media %}
+                  <img
+                    srcset="{%- if product.featured_media.width >= 165 -%}{{ product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+                      {%- if product.featured_media.width >= 360 -%}{{ product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
+                      {%- if product.featured_media.width >= 533 -%}{{ product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+                      {%- if product.featured_media.width >= 720 -%}{{ product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+                      {%- if product.featured_media.width >= 940 -%}{{ product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}"
+                    src="{{ product.featured_media | image_url: width: 533 }}"
+                    sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                    alt="{{ product.featured_media.alt | escape }}"
+                    class="lookbook-product-image"
+                    loading="lazy"
+                    width="{{ product.featured_media.width }}"
+                    height="{{ product.featured_media.height }}"
+                  >
+                {% endif %}
+                <div class="lookbook-product-info">
+                  <h4 class="lookbook-product-title">{{ product.title }}</h4>
+                  <p class="lookbook-product-price">{{ product.price | money }}</p>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Lookbook",
+  "tag": "section",
+  "class": "section lookbook-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Lookbook"
+    },
+    {
+      "type": "metaobject",
+      "id": "lookbook",
+      "label": "Select Lookbook",
+      "definition": "lookbook"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lookbook",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

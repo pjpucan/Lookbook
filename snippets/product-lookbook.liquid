@@ -1,0 +1,116 @@
+{% comment %}
+  Renders lookbooks that feature the current product
+  Usage:
+  {% render 'product-lookbook', product: product %}
+{% endcomment %}
+
+{%- liquid
+  assign lookbooks = product.metafields.lookbook.featured_in
+  if lookbooks == blank
+    break
+  endif
+-%}
+
+<div class="product-lookbook-section">
+  <h2 class="product-lookbook-title">Featured In</h2>
+  
+  <div class="product-lookbook-container">
+    {% for lookbook in lookbooks %}
+      <div class="product-lookbook-card">
+        <h3 class="product-lookbook-name">{{ lookbook.title }}</h3>
+        
+        {% if lookbook.description != blank %}
+          <div class="product-lookbook-description">
+            {{ lookbook.description }}
+          </div>
+        {% endif %}
+        
+        <div class="product-lookbook-products">
+          {% for related_product in lookbook.products limit: 4 %}
+            {% unless related_product.id == product.id %}
+              <div class="product-lookbook-related-item">
+                <a href="{{ related_product.url }}" class="product-lookbook-related-link">
+                  {% if related_product.featured_image %}
+                    <img
+                      src="{{ related_product.featured_image | image_url: width: 200 }}"
+                      alt="{{ related_product.featured_image.alt | escape }}"
+                      class="product-lookbook-related-image"
+                      loading="lazy"
+                      width="200"
+                      height="{{ 200 | divided_by: related_product.featured_image.aspect_ratio | round }}"
+                    >
+                  {% endif %}
+                  <span class="product-lookbook-related-title">{{ related_product.title }}</span>
+                </a>
+              </div>
+            {% endunless %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% style %}
+.product-lookbook-section {
+  margin: 40px 0;
+}
+
+.product-lookbook-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.product-lookbook-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.product-lookbook-card {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.product-lookbook-name {
+  margin: 0 0 1rem;
+}
+
+.product-lookbook-description {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.product-lookbook-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.product-lookbook-related-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.product-lookbook-related-image {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.product-lookbook-related-title {
+  font-size: 0.9rem;
+  display: block;
+  text-align: center;
+}
+
+@media screen and (max-width: 749px) {
+  .product-lookbook-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+{% endstyle %}

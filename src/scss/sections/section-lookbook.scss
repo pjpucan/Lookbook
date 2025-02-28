@@ -1,0 +1,150 @@
+@import "../util/px-to-rem"; // Function to Convert PX to REM
+@import "../mixins/breakpoints"; // Responsive Mixins
+
+.lookbook-section {
+  margin: toRem(20px) 0;
+
+  @include media-breakpoint-up(md) {
+    margin: toRem(30px) 0;
+  }
+}
+
+.lookbook-container {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 toRem(15px);
+
+  @include media-breakpoint-up(md) {
+    padding: 0 toRem(24px);
+  }
+
+  padding: 2rem 0;
+
+  .lookbook-title {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .lookbook-name {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .lookbook-description {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}
+
+.lookbook-title {
+  text-align: center;
+  margin-bottom: toRem(24px);
+  font-size: toRem(24px);
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: toRem(32px);
+    font-size: toRem(32px);
+  }
+}
+
+.lookbook-content {
+  margin-top: toRem(24px);
+
+  @include media-breakpoint-up(md) {
+    margin-top: toRem(32px);
+  }
+}
+
+.lookbook-name {
+  margin-bottom: toRem(12px);
+  font-size: toRem(20px);
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: toRem(16px);
+    font-size: toRem(24px);
+  }
+}
+
+.lookbook-description {
+  margin-bottom: toRem(24px);
+  font-size: toRem(14px);
+  line-height: 1.5;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: toRem(32px);
+    font-size: toRem(16px);
+  }
+}
+
+.lookbook-products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: toRem(16px);
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: toRem(24px);
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: toRem(32px);
+  }
+}
+
+.lookbook-product-card {
+  position: relative;
+
+  &:hover {
+    .lookbook-product-image {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.lookbook-product-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.lookbook-product-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: toRem(8px);
+  transition: transform 0.3s ease;
+}
+
+.lookbook-product-info {
+  margin-top: toRem(12px);
+  text-align: left;
+
+  @include media-breakpoint-up(md) {
+    margin-top: toRem(16px);
+  }
+}
+
+.lookbook-product-title {
+  margin: 0;
+  font-size: toRem(14px);
+  font-weight: 500;
+  line-height: 1.4;
+
+  @include media-breakpoint-up(md) {
+    font-size: toRem(16px);
+  }
+}
+
+.lookbook-product-price {
+  margin: toRem(6px) 0 0;
+  color: var(--price-text-color);
+  font-size: toRem(14px);
+  font-weight: 600;
+
+  @include media-breakpoint-up(md) {
+    margin: toRem(8px) 0 0;
+    font-size: toRem(16px);
+  }
+}
