@@ -1,0 +1,63 @@
+{{ 'section-lookbook.css' | asset_url | stylesheet_tag }}
+
+{% assign found_lookbooks = false %}
+
+{% for lookbook in shop.metaobjects.lookbook.values %}
+  {% assign lookbook_products = lookbook.products.value %}
+  {% assign product_found = false %}
+
+  {% for lookbook_product in lookbook_products %}
+    {% if lookbook_product.handle == product.handle %}
+      {% assign product_found = true %}
+    {% endif %}
+  {% endfor %}
+
+  {% if product_found %}
+    {% unless found_lookbooks %}
+      {% assign found_lookbooks = true %}
+      <div class="page-width">
+        <h2 class="lookbook-section-title">Shop the Look</h2>
+      </div>
+    {% endunless %}
+    
+    <div class="lookbook-container page-width">
+      {% if lookbook.title != blank %}
+        <h3 class="lookbook-name">{{ lookbook.title }}</h3>
+      {% endif %}
+      
+      {% if lookbook.description != blank %}
+        <div class="lookbook-description">{{ lookbook.description }}</div>
+      {% endif %}
+      
+      <div class="lookbook-content">
+        <div class="lookbook-products">
+          {% for lookbook_product in lookbook_products %}
+            {% unless lookbook_product.handle == product.handle %}
+              {% assign lookbook_product_data = all_products[lookbook_product.handle] %}
+              {% if lookbook_product_data != blank %}
+                <div class="lookbook-product-card">
+                  <a href="{{ lookbook_product_data.url }}" class="lookbook-product-link">
+                    {% if lookbook_product_data.featured_media %}
+                      <img
+                        src="{{ lookbook_product_data.featured_media | image_url: width: 533 }}"
+                        alt="{{ lookbook_product_data.featured_media.alt | escape }}"
+                        class="lookbook-product-image"
+                        loading="lazy"
+                        width="{{ lookbook_product_data.featured_media.width }}"
+                        height="{{ lookbook_product_data.featured_media.height }}"
+                      >
+                    {% endif %}
+                    <div class="lookbook-product-info">
+                      <h4 class="lookbook-product-title">{{ lookbook_product_data.title }}</h4>
+                      <p class="lookbook-product-price">{{ lookbook_product_data.price | money }}</p>
+                    </div>
+                  </a>
+                </div>
+              {% endif %}
+            {% endunless %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}

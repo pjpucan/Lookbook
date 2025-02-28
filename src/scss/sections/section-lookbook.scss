@@ -36,7 +36,7 @@
   }
 }
 
-.lookbook-title {
+.lookbook-section-title {
   text-align: center;
   margin-bottom: toRem(24px);
   font-size: toRem(24px);
@@ -44,6 +44,29 @@
   @include media-breakpoint-up(md) {
     margin-bottom: toRem(32px);
     font-size: toRem(32px);
+  }
+}
+
+.lookbook-name {
+  text-align: center;
+  margin-bottom: toRem(12px);
+  font-size: toRem(20px);
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: toRem(16px);
+    font-size: toRem(24px);
+  }
+}
+
+.lookbook-description {
+  text-align: center;
+  margin-bottom: toRem(24px);
+  font-size: toRem(14px);
+  line-height: 1.5;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: toRem(32px);
+    font-size: toRem(16px);
   }
 }
 
@@ -55,31 +78,11 @@
   }
 }
 
-.lookbook-name {
-  margin-bottom: toRem(12px);
-  font-size: toRem(20px);
-
-  @include media-breakpoint-up(md) {
-    margin-bottom: toRem(16px);
-    font-size: toRem(24px);
-  }
-}
-
-.lookbook-description {
-  margin-bottom: toRem(24px);
-  font-size: toRem(14px);
-  line-height: 1.5;
-
-  @include media-breakpoint-up(md) {
-    margin-bottom: toRem(32px);
-    font-size: toRem(16px);
-  }
-}
-
 .lookbook-products {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: toRem(16px);
+  justify-content: center;
 
   @include media-breakpoint-up(md) {
     grid-template-columns: repeat(3, 1fr);
@@ -119,7 +122,7 @@
 
 .lookbook-product-info {
   margin-top: toRem(12px);
-  text-align: left;
+  text-align: center;
 
   @include media-breakpoint-up(md) {
     margin-top: toRem(16px);
