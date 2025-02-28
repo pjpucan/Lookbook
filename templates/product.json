@@ -99,10 +99,18 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "lookbook_6YAYBe": {
+      "type": "lookbook",
+      "settings": {
+        "title": "Featured Lookbook",
+        "lookbook": "cupcake-ipsum-dolor-sit-amet"
+      }
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related-products",
+    "lookbook_6YAYBe"
   ]
 }
