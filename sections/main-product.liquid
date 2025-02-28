@@ -15,6 +15,7 @@
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  {{ 'section-lookbook.css' | asset_url | stylesheet_tag }}
 
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
@@ -143,9 +144,9 @@
               {%- when 'inventory' -%}
                 <p
                   class="product__inventory{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
-                  {{ block.shopify_attributes }}
                   id="Inventory-{{ section.id }}"
                   role="status"
+                  {{ block.shopify_attributes }}
                 >
                   {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
                     {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
@@ -652,7 +653,6 @@
                     </aside>
                   {%- endif -%}
                   {{ 'component-card.css' | asset_url | stylesheet_tag }}
-                  {{ 'component-complementary-products.css' | asset_url | stylesheet_tag }}
                   {%- if block.settings.enable_quick_add -%}
                     {{ 'quick-add.css' | asset_url | stylesheet_tag }}
                     <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
@@ -669,6 +669,9 @@
         </section>
       </div>
     </div>
+
+    {% comment %} Include Product Lookbooks {% endcomment %}
+    {% render 'product-lookbooks' %}
 
     {% render 'product-media-modal', variant_images: variant_images %}
 
