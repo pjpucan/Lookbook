@@ -1,5 +1,4 @@
-{{ 'lookbook.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'lookbook.js' | asset_url }}" defer></script>
+{{ 'section-lookbook.css' | asset_url | stylesheet_tag }}
 
 <div class="lookbook-container page-width">
   {% if section.settings.title != blank %}
@@ -8,34 +7,36 @@
 
   {% if section.settings.lookbook != blank %}
     {% assign lookbook = section.settings.lookbook %}
-    <div class="lookbook-content {% if section.settings.lookbook_layout == 'slider' %}lookbook-slider{% else %}lookbook-grid{% endif %}">
-      {% if lookbook.title != blank %}
-        <h3 class="lookbook-name">{{ lookbook.title }}</h3>
-      {% endif %}
-      
-      {% if lookbook.description != blank %}
-        <div class="lookbook-description">{{ lookbook.description }}</div>
-      {% endif %}
-
-      {% if lookbook.products != blank %}
+    
+    {% if lookbook.title != blank %}
+      <h3 class="lookbook-name">{{ lookbook.title }}</h3>
+    {% endif %}
+    
+    {% if lookbook.description != blank %}
+      <div class="lookbook-description">{{ lookbook.description }}</div>
+    {% endif %}
+    
+    <div class="lookbook-content">
+      {% assign products = lookbook.products.value %}
+      {% if products != blank %}
         <div class="lookbook-products">
-          {% for product in lookbook.products %}
+          {% for product in products %}
             <div class="lookbook-product-card">
               <a href="{{ product.url }}" class="lookbook-product-link">
-                {% if product.featured_image %}
+                {% if product.featured_media %}
                   <img
-                    srcset="{%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
-                      {%- if product.featured_image.width >= 360 -%}{{ product.featured_image | image_url: width: 360 }} 360w,{%- endif -%}
-                      {%- if product.featured_image.width >= 533 -%}{{ product.featured_image | image_url: width: 533 }} 533w,{%- endif -%}
-                      {%- if product.featured_image.width >= 720 -%}{{ product.featured_image | image_url: width: 720 }} 720w,{%- endif -%}
-                      {%- if product.featured_image.width >= 940 -%}{{ product.featured_image | image_url: width: 940 }} 940w,{%- endif -%}"
-                    src="{{ product.featured_image | image_url: width: 533 }}"
+                    srcset="{%- if product.featured_media.width >= 165 -%}{{ product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+                      {%- if product.featured_media.width >= 360 -%}{{ product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
+                      {%- if product.featured_media.width >= 533 -%}{{ product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+                      {%- if product.featured_media.width >= 720 -%}{{ product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+                      {%- if product.featured_media.width >= 940 -%}{{ product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}"
+                    src="{{ product.featured_media | image_url: width: 533 }}"
                     sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                    alt="{{ product.featured_image.alt | escape }}"
+                    alt="{{ product.featured_media.alt | escape }}"
                     class="lookbook-product-image"
                     loading="lazy"
-                    width="{{ product.featured_image.width }}"
-                    height="{{ product.featured_image.height }}"
+                    width="{{ product.featured_media.width }}"
+                    height="{{ product.featured_media.height }}"
                   >
                 {% endif %}
                 <div class="lookbook-product-info">
@@ -64,26 +65,10 @@
       "default": "Featured Lookbook"
     },
     {
-      "type": "select",
-      "id": "lookbook_layout",
-      "label": "Layout Style",
-      "options": [
-        {
-          "value": "grid",
-          "label": "Grid"
-        },
-        {
-          "value": "slider",
-          "label": "Slider"
-        }
-      ],
-      "default": "grid"
-    },
-    {
       "type": "metaobject",
       "id": "lookbook",
       "label": "Select Lookbook",
-      "metaobject_type": "lookbook"
+      "definition": "lookbook"
     }
   ],
   "presets": [
