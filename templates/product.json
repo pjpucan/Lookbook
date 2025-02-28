@@ -99,18 +99,10 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
-    },
-    "lookbook_DfHzcT": {
-      "type": "lookbook",
-      "settings": {
-        "title": "Featured Lookbook",
-        "lookbook": "bear-claw-biscuit-souffle-pastry-jelly-beans"
-      }
     }
   },
   "order": [
     "main",
-    "lookbook_DfHzcT",
     "related-products"
   ]
 }
