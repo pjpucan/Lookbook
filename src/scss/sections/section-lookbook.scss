@@ -17,26 +17,10 @@
   @include media-breakpoint-up(md) {
     padding: 0 toRem(24px);
   }
-
-  padding: 2rem 0;
-
-  .lookbook-title {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .lookbook-name {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  .lookbook-description {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
 }
 
-.lookbook-section-title {
+.lookbook-title,
+.lookbook-name {
   text-align: center;
   margin-bottom: toRem(24px);
   font-size: toRem(24px);
@@ -44,17 +28,6 @@
   @include media-breakpoint-up(md) {
     margin-bottom: toRem(32px);
     font-size: toRem(32px);
-  }
-}
-
-.lookbook-name {
-  text-align: center;
-  margin-bottom: toRem(12px);
-  font-size: toRem(20px);
-
-  @include media-breakpoint-up(md) {
-    margin-bottom: toRem(16px);
-    font-size: toRem(24px);
   }
 }
 
@@ -71,32 +44,87 @@
 }
 
 .lookbook-content {
-  margin-top: toRem(24px);
+  margin: toRem(24px) auto;
+  max-width: var(--page-width);
 
   @include media-breakpoint-up(md) {
-    margin-top: toRem(32px);
+    margin: toRem(32px) auto;
   }
 }
 
 .lookbook-products {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: toRem(16px);
-  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+
+  // Base styles for all grid layouts
+  &.grid-1 {
+    grid-template-columns: minmax(auto, toRem(300px));
+    max-width: toRem(300px);
+  }
+
+  &.grid-2 {
+    grid-template-columns: repeat(2, minmax(auto, toRem(300px)));
+    max-width: toRem(632px); // 300px * 2 + 32px gap
+  }
+
+  &.grid-3 {
+    grid-template-columns: repeat(2, minmax(auto, toRem(300px)));
+    max-width: toRem(632px);
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: repeat(3, minmax(auto, toRem(300px)));
+      max-width: toRem(964px); // 300px * 3 + 32px * 2 gaps
+    }
+  }
+
+  &.grid-4 {
+    grid-template-columns: repeat(2, minmax(auto, toRem(300px)));
+    max-width: toRem(632px);
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: repeat(2, minmax(auto, toRem(300px)));
+      max-width: toRem(632px);
+    }
+
+    @include media-breakpoint-up(lg) {
+      grid-template-columns: repeat(4, minmax(auto, toRem(300px)));
+      max-width: toRem(1296px); // 300px * 4 + 32px * 3 gaps
+    }
+  }
+
+  // For 5 or more products
+  &.grid-5,
+  &.grid-6,
+  &.grid-7,
+  &.grid-8 {
+    grid-template-columns: repeat(2, minmax(auto, toRem(300px)));
+    max-width: toRem(632px);
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: repeat(3, minmax(auto, toRem(300px)));
+      max-width: toRem(964px);
+    }
+
+    @include media-breakpoint-up(lg) {
+      grid-template-columns: repeat(4, minmax(auto, toRem(300px)));
+      max-width: toRem(1296px);
+    }
+  }
 
   @include media-breakpoint-up(md) {
-    grid-template-columns: repeat(3, 1fr);
     gap: toRem(24px);
   }
 
   @include media-breakpoint-up(lg) {
-    grid-template-columns: repeat(4, 1fr);
     gap: toRem(32px);
   }
 }
 
 .lookbook-product-card {
   position: relative;
+  width: 100%;
 
   &:hover {
     .lookbook-product-image {
@@ -141,13 +169,13 @@
 }
 
 .lookbook-product-price {
-  margin: toRem(6px) 0 0;
-  color: var(--price-text-color);
+  margin: toRem(4px) 0 0;
   font-size: toRem(14px);
   font-weight: 600;
+  color: var(--price-text-color);
 
   @include media-breakpoint-up(md) {
-    margin: toRem(8px) 0 0;
+    margin-top: toRem(8px);
     font-size: toRem(16px);
   }
 }

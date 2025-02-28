@@ -5,14 +5,29 @@
 {% for lookbook in shop.metaobjects.lookbook.values %}
   {% assign lookbook_products = lookbook.products.value %}
   {% assign product_found = false %}
+  {% assign total_products = 0 %}
 
+  {% comment %} First check if current product is in lookbook {% endcomment %}
   {% for lookbook_product in lookbook_products %}
     {% if lookbook_product.handle == product.handle %}
       {% assign product_found = true %}
+      {% break %}
     {% endif %}
   {% endfor %}
 
   {% if product_found %}
+    {% comment %} Count valid products first {% endcomment %}
+    {% assign valid_products = '' %}
+    {% for lookbook_product in lookbook_products %}
+      {% unless lookbook_product.handle == product.handle %}
+        {% assign lookbook_product_data = all_products[lookbook_product.handle] %}
+        {% if lookbook_product_data != blank %}
+          {% assign valid_products = valid_products | append: lookbook_product.handle | append: ',' %}
+          {% assign total_products = total_products | plus: 1 %}
+        {% endif %}
+      {% endunless %}
+    {% endfor %}
+
     {% unless found_lookbooks %}
       {% assign found_lookbooks = true %}
       <div class="page-width">
@@ -30,7 +45,8 @@
       {% endif %}
       
       <div class="lookbook-content">
-        <div class="lookbook-products">
+        {% assign grid_class = 'grid-' | append: total_products %}
+        <div class="lookbook-products {{ grid_class }}">
           {% for lookbook_product in lookbook_products %}
             {% unless lookbook_product.handle == product.handle %}
               {% assign lookbook_product_data = all_products[lookbook_product.handle] %}
